@@ -1,4 +1,6 @@
-import 'package:app_test/View/SplashScreen.dart';
+// ignore_for_file: non_constant_identifier_names
+
+import 'package:app_test/Model/PermissionStatusModel.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -10,7 +12,8 @@ class PermissionStatusText extends StatefulWidget {
 }
 
 class _PermissionStatusTextState extends State<PermissionStatusText> {
-  PermissionStatus _permissionStatus = PermissionStatus.denied;
+  PermissionStatus _location_permissionStatus = PermissionStatus.denied;
+  PermissionStatus _bluetooth_permissionStatus = PermissionStatus.denied;
   @override
   void initState() {
     super.initState();
@@ -21,39 +24,52 @@ class _PermissionStatusTextState extends State<PermissionStatusText> {
     PermissionStatus locationstatus = await Permission.location.status;
     PermissionStatus bluetoothstatus = await Permission.bluetooth.status;
     setState(() {
-      _permissionStatus = locationstatus;
-      _permissionStatus = bluetoothstatus;
+      _location_permissionStatus = locationstatus;
+      _bluetooth_permissionStatus = bluetoothstatus;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    String location_permissionText = '';
-    String bluetooth_permissionText = '';
+    PermissionStatusModel permissionStatusModel = PermissionStatusModel();
 
-    switch (_permissionStatus) {
+    switch (_location_permissionStatus) {
       case PermissionStatus.granted:
-        location_permissionText = 'Location permission granted';
-        bluetooth_permissionText = 'Bluetooth permission granted';
+        permissionStatusModel.locationPermission =
+            'Location permission granted';
         break;
       case PermissionStatus.denied:
-        location_permissionText = 'Location permission denied';
-        bluetooth_permissionText = 'Bluetooth permission denied';
+        permissionStatusModel.locationPermission = 'Location permission denied';
         break;
       case PermissionStatus.restricted:
-        location_permissionText = 'Location permission restricted';
-        bluetooth_permissionText = 'Bluetooth permission restricted';
+        permissionStatusModel.locationPermission =
+            'Location permission restricted';
         break;
       default:
-        location_permissionText = 'Unknown permission status';
-        bluetooth_permissionText = 'Unknown permission status';
+        permissionStatusModel.locationPermission = 'Unknown permission status';
+    }
+    switch (_bluetooth_permissionStatus) {
+      case PermissionStatus.granted:
+        permissionStatusModel.bluetoothPermission =
+            'Bluetooth permission granted';
+        break;
+      case PermissionStatus.denied:
+        permissionStatusModel.bluetoothPermission =
+            'Bluetooth permission denied';
+        break;
+      case PermissionStatus.restricted:
+        permissionStatusModel.bluetoothPermission =
+            'Bluetooth permission restricted';
+        break;
+      default:
+        permissionStatusModel.bluetoothPermission = 'Unknown permission status';
     }
 
     return Center(
       child: Column(
         children: [
-          Text(location_permissionText),
-          Text(bluetooth_permissionText),
+          Text('${permissionStatusModel.locationPermission}'),
+          Text('${permissionStatusModel.bluetoothPermission}'),
         ],
       ),
     );

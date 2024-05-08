@@ -22,7 +22,7 @@ class _MainScreenState extends State<MainScreen> {
         debugShowCheckedModeBanner: false,
         builder: (context, child) => MediaQuery(
             data: MediaQuery.of(context).copyWith(
-              textScaleFactor: 1.0,
+              textScaler: TextScaler.linear(1.0),
             ),
             child: child!),
         home: Scaffold(
