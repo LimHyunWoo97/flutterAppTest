@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_this
+
 class PermissionStatusModel {
   static final PermissionStatusModel _instance =
       PermissionStatusModel._internal();

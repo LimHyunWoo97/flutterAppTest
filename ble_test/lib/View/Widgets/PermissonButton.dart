@@ -1,10 +1,6 @@
-import 'dart:developer';
-
 import 'package:app_test/Utilites/RequestPermission.dart';
-import 'package:app_test/View/SplashScreen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class PermissoinButton extends StatefulWidget {
   const PermissoinButton({super.key});
